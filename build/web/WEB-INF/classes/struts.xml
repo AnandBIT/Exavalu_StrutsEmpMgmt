@@ -20,6 +20,9 @@
             <result name="SUCCESS">login.jsp</result>
             <result name="FAILURE">signup.jsp</result>
         </action>
+        <action name="PreSignUp" class="com.exavalu.models.User" method="doPreSignUp">
+            <result name="SUCCESS">signup.jsp</result>
+        </action>
         <action name="CreateEmployee" class="com.exavalu.models.Employee" method="createEmployee">
             <result name="SUCCESS">employeeDetails.jsp</result>
             <result name="FAILURE">createEmployee.jsp</result>

@@ -6,6 +6,7 @@ package com.exavalu.models;
 
 import com.exavalu.services.DepartmentService;
 import com.exavalu.services.EmployeeService;
+import com.exavalu.services.GeoMapService;
 import com.exavalu.services.RoleService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -59,6 +60,12 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             ArrayList roleList = RoleService.getAllRoles();
             sessionMap.put("deptList", deptList);
             sessionMap.put("roleList", roleList);
+            ArrayList countryList = GeoMapService.getAllCountries();
+//            ArrayList stateList = GeoMapService.getAllStates();
+//            ArrayList districtList = GeoMapService.getAllDistricts();
+            sessionMap.put("countryList", countryList);
+//            sessionMap.put("stateList", stateList);
+//            sessionMap.put("districtList", districtList);
             return result;
         }
 

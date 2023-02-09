@@ -1,3 +1,4 @@
+<%@page import="com.exavalu.models.Country"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${loggedIn == null}">
@@ -24,7 +25,6 @@
     <body class="d-block pt-0">
         <jsp:include page="menu.jsp"></jsp:include>
             <main class="form-signin w-100 m-auto">
-
                 <form action='CreateEmployee' method="post">
                     <h1 class="h3 mb-3 fw-normal text-center">Create Employee</h1>
 
@@ -108,4 +108,7 @@
 
 
     </body>
+    <script>
+        var empList = '${deptList}';
+    </script>
 </html>

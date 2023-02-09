@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,7 +26,7 @@
     </head>
     <body class="text-center">
         <main class="form-signin w-100 m-auto">
-            <form action="SignUp" method="post">
+            <form action="SignUp" method="post" id="signupForm">
                 <img
                     class="mb-4"
                     src="https://www.mulesoft.com/sites/default/files/2020-12/Exavalu%20Logo.png"
@@ -40,6 +42,7 @@
                         id="floatingFirstName"
                         placeholder="First Name"
                         name="firstName"
+                        value="${user.firstName}"
                         required
                         />
                     <label for="floatingFirstName">First Name</label>
@@ -52,6 +55,7 @@
                         id="floatingLastName"
                         placeholder="Last Name"
                         name="lastName"
+                        value="${user.lastName}"
                         required
                         />
                     <label for="floatingLastName">Last Name</label>
@@ -64,6 +68,7 @@
                         id="floatingInput"
                         placeholder="name@example.com"
                         name="email"
+                        value="${user.email}"
                         required
                         />
                     <label for="floatingInput">Email address</label>
@@ -72,13 +77,53 @@
                 <div class="form-floating">
                     <input
                         type="password"
-                        class="form-control"
+                        class="form-control rounded-0 mb-0"
                         id="floatingPassword"
                         placeholder="Password"
                         name="password"
+                        value="${user.password}"
                         required
                         />
                     <label for="floatingPassword">Password</label>
+                </div>
+
+                <div class="form-floating">
+                    <select name="countryCode" class="form-select rounded-0" id="countryCode" onchange="submitForm(event)">
+                        <option value="0">--Select a Country--</option>
+
+                        <c:forEach var="country" items="${countryList}">
+                            <option value="${country.getCountryCode()}" ${country.getCountryCode() == user.getCountryCode() ? "selected" : ""}>
+                                ${country.getCountryName()}
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <label for="countryCode">Country</label>
+                </div>
+
+                <div class="form-floating">
+                    <select name="stateCode" class="form-select rounded-0" id="stateCode" onchange="submitForm(event)">
+                        <option value="0">--Select a State--</option>
+
+                        <c:forEach var="state" items="${stateList}">
+                            <option value="${state.getStateCode()}" ${state.getStateCode() == user.getStateCode() ? "selected" : ""}>
+                                ${state.getStateName()}
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <label for="stateCode">State</label>
+                </div>
+
+                <div class="form-floating">
+                    <select name="districtCode" class="form-select rounded-top-0" id="districtCode">
+                        <option value="0">--Select a District--</option>
+
+                        <c:forEach var="district" items="${districtList}">
+                            <option value="${district.getDistrictCode()}" ${district.getDistrictCode() == user.getDistrictCode() ? "selected" : ""}>
+                                ${district.getDistrictName()}
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <label for="districtCode">District</label>
                 </div>
 
                 <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">
@@ -88,4 +133,21 @@
             </form>
         </main>
     </body>
+    <script>
+        function submitForm(event) {
+            const countryCode = document.getElementById("countryCode");
+            const stateCode = document.getElementById("stateCode");
+            const districtCode = document.getElementById("districtCode");
+            if (event.target.id === "countryCode") {
+                stateCode.value = 0;
+            }
+
+//            console.log(countryCode.value === null);
+//            console.log(stateCode.value === null);
+//            console.log(districtCode.value === null);
+            signupForm.setAttribute("action", "PreSignUp");
+            signupForm.submit();
+        }
+
+    </script>
 </html>

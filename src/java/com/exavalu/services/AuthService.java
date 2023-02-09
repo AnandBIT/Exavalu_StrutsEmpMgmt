@@ -63,17 +63,23 @@ public class AuthService {
         String lastName = user.getLastName();
         String email = user.getEmail();
         String password = user.getPassword();
+        String countryCode = user.getCountryCode();
+        String stateCode = user.getStateCode();
+        String districtCode = user.getDistrictCode();
 
         try {
-            if (firstName != null && lastName != null && email != null && password != null) {
+            if (firstName != null && lastName != null && email != null && password != null && !"0".equals(countryCode) && !"0".equals(stateCode) && !"0".equals(districtCode)) {
                 Connection con = JDBCConnectionManager.getMySQLConnection();
-                String sql = "INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?);";
+                String sql = "INSERT INTO users (firstName, lastName, email, password, countryCode, stateCode, districtCode) VALUES (?, ?, ?, ?,?,?,?);";
                 PreparedStatement preparedStatement = con.prepareStatement(sql);
 
                 preparedStatement.setString(1, firstName);
                 preparedStatement.setString(2, lastName);
                 preparedStatement.setString(3, email);
                 preparedStatement.setString(4, password);
+                preparedStatement.setString(5, countryCode);
+                preparedStatement.setString(6, stateCode);
+                preparedStatement.setString(7, districtCode);
                 preparedStatement.executeUpdate();
                 result = true;
 //                con.close(); // NOTE - Getting error here (java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.)

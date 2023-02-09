@@ -6,6 +6,7 @@ package com.exavalu.models;
 
 import com.exavalu.services.EmployeeService;
 import com.exavalu.services.AuthService;
+import com.exavalu.services.GeoMapService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
@@ -26,6 +27,9 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     private String password;
     private String firstName;
     private String lastName;
+    private String countryCode;
+    private String stateCode;
+    private String districtCode;
 
     private SessionMap<String, Object> sessionMap = (SessionMap) ActionContext.getContext().getSession();
 
@@ -41,16 +45,42 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
         sessionMap = (SessionMap) session;
     }
 
+    public String doPreSignUp() throws Exception {
+        String result = "SUCCESS";
+
+        ArrayList countryList = GeoMapService.getAllCountries();
+        ArrayList stateList = null;
+        ArrayList districtList = null;
+
+        sessionMap.put("countryList", countryList);
+
+        if (this.countryCode != null && this.stateCode != null) {
+            stateList = GeoMapService.getStatesByCountryCode(this.countryCode);
+            districtList = GeoMapService.getDistrictsByStateCode(this.stateCode);
+            sessionMap.put("stateList", stateList);
+            sessionMap.put("districtList", districtList);
+            sessionMap.put("user", this);
+            result = "SUCCESS";
+        } else if (this.countryCode != null) {
+            stateList = GeoMapService.getStatesByCountryCode(this.countryCode);
+            sessionMap.put("stateList", stateList);
+            sessionMap.put("user", this);
+            result = "SUCCESS";
+        }
+
+        return result;
+    }
+
     public String doSignUp() throws Exception {
         String result = "FAILURE";
 
         boolean success = AuthService.getInstance().doSignUp(this);
 
         if (success) {
-            System.out.println("returning Success from doSignUp method");
+            System.out.println("Returning Success from doSignUp method");
             result = "SUCCESS";
         } else {
-            System.out.println("returning Failure from doSignUp method");
+            System.out.println("Returning Failure from doSignUp method");
         }
 
         return result;
@@ -62,7 +92,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
         boolean success = AuthService.getInstance().doLogin(this);
 
         if (success) {
-            System.out.println("returning Success from doLogin method");
+            System.out.println("Returning Success from doLogin method");
             sessionMap.put("loggedIn", this);
 
             ArrayList empList = EmployeeService.getAllEmployees();
@@ -71,7 +101,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             result = "SUCCESS";
 
         } else {
-            System.out.println("returning Failure from doLogin method");
+            System.out.println("Returning Failure from doLogin method");
         }
 
         return result;
@@ -115,6 +145,30 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getStateCode() {
+        return stateCode;
+    }
+
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
+    }
+
+    public String getDistrictCode() {
+        return districtCode;
+    }
+
+    public void setDistrictCode(String districtCode) {
+        this.districtCode = districtCode;
     }
 
 }

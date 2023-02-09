@@ -31,7 +31,7 @@
                             <a href="login.jsp" class="text-decoration-none">
                                 <button type="button" class="btn btn-outline-light me-2" >Login</button>
                             </a>
-                            <a href="signup.jsp" class="text-decoration-none">
+                            <a href="PreSignUp" class="text-decoration-none">
                                 <button type="button" class="btn btn-warning">Sign-up</button>
                             </a>
                         </c:when>
