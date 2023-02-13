@@ -7,10 +7,12 @@ package com.exavalu.models;
 import com.exavalu.services.EmployeeService;
 import com.exavalu.services.AuthService;
 import com.exavalu.services.GeoMapService;
+import com.exavalu.services.JSONService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
@@ -30,6 +32,15 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     private String countryCode;
     private String stateCode;
     private String districtCode;
+    private List<JSONData> jsonData;
+
+    public List<JSONData> getJsonData() {
+        return jsonData;
+    }
+
+    public void setJsonData(List<JSONData> jsonData) {
+        this.jsonData = jsonData;
+    }
 
     private SessionMap<String, Object> sessionMap = (SessionMap) ActionContext.getContext().getSession();
 
@@ -113,6 +124,19 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
         sessionMap.clear();
 
         return result;
+    }
+
+    public String doSendDataToDB() {
+        boolean success = JSONService.sendDataToDB(this.getJsonData());
+        if (success) {
+            System.out.println("Yayy! Data successfully inserted into DB");
+            sessionMap.put("msg", "Data successfully entered into DB");
+            return "SUCCESS";
+        } else {
+            System.err.println("Oops! Something went wrong during insertion of data into DB. Please try again!");
+            sessionMap.put("msg", "Something went wrong!");
+            return "FAILURE";
+        }
     }
 
     public String getEmail() {

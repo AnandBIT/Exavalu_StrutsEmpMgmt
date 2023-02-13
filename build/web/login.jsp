@@ -11,6 +11,7 @@
     </head>
     <%@taglib prefix="s" uri="/struts-tags"%>
     <body class="text-center">
+
         <main class="form-signin w-100 m-auto">
             <form action="Login" method="post">
                 <img class="mb-4" src="https://www.mulesoft.com/sites/default/files/2020-12/Exavalu%20Logo.png" alt="" height="57">
@@ -38,8 +39,5 @@
                 <p class="mt-5 mb-3 text-muted">&copy; 2017?2022</p>
             </form>
         </main>
-
-
-
     </body>
 </html>

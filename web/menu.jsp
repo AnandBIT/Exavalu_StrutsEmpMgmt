@@ -23,6 +23,11 @@
                     <li><a href="CreateEmployee" class="nav-link px-2 text-white">Create Employee</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Show Employee</a></li>
                     <li><a href="SearchEmployee" class="nav-link px-2 text-white">Search Employee</a></li>
+                    <button class="mx-2 btn btn-primary d-flex align-items-center" onclick="sendDataToDB()" style="gap: 0.6rem">
+                        Click here to fetch JSON and store into DB
+                        <div class="spinner-border spinner-border-sm d-none text-light " role="status" style="width: 1.2rem; height: 1.2rem;" id="loader">
+                        </div>
+                    </button>
                 </ul>
 
                 <div class="text-end">
@@ -44,4 +49,52 @@
                 </div>
             </div>
         </div>
+
     </header>
+    <div class="alert alert-success d-flex d-none align-items-center justify-content-between mt-2 mx-4" role="alert" id="successAlert">
+        <p class="m-0"></p>
+        <button type="button" class="btn-close" onclick="closeAlert(event)"></button>
+    </div>
+    <div class="alert alert-danger d-flex d-none align-items-center justify-content-between mt-2 mx-4" role="alert" id="errorAlert">
+        <p class="m-0"></p>
+        <button type="button" class="btn-close" onclick="closeAlert(event)"></button>
+    </div>
+
+    <script>
+        function closeAlert(event) {
+            event.currentTarget.parentNode.classList.add("d-none");
+        }
+
+        async function sendDataToDB() {
+            var jsonData;
+            loader.classList.remove('d-none');
+            await fetch("https://jsonplaceholder.typicode.com/posts").then(res => res.json()).then(data => {
+                jsonData = data;
+            });
+            jsonData.splice(10, 90);
+            console.log(jsonData);
+            fetch('SendDataToDB', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({jsonData})
+            })
+                    .then((response) => {
+                        loader.classList.add('d-none');
+                        return response.json();
+                    }).then(data => {
+                console.log(data);
+                if (data.done) {
+                    successAlert.classList.remove("d-none");
+                    successAlert.firstElementChild.innerText = "Yayy! Data Successfully inserted into DB";
+                } else if (data.error) {
+                    errorAlert.classList.remove("d-none");
+                    errorAlert.firstElementChild.innerText = "Oops! Something went wrong. Please try again";
+                }
+            })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+        }
+    </script>

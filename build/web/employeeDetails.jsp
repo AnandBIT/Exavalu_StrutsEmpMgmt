@@ -22,7 +22,6 @@
     <jsp:include page="menu.jsp"></jsp:include>
 
         <main class="px-4 py-2">
-
             <div class="pt-2 table-responsive">
                 <table
                     class="table table-bordered border-primary rounded table-hover"
@@ -73,5 +72,3 @@
             </table>
         </div>
     </main>
-
-</html>

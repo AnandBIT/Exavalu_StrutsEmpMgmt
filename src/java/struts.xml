@@ -41,5 +41,15 @@
             <result name="SUCCESS">employeeDetails.jsp</result>
             <result name="FAILURE">employeeDetails.jsp</result>
         </action>
+
     </package>
+    <package name="handleJsonData" namespace="/" extends="json-default">
+        <action name="SendDataToDB" class="com.exavalu.models.User" method="doSendDataToDB">
+            <interceptor-ref name="json"/>
+            <interceptor-ref name="defaultStack"/>
+            <result name="SUCCESS">/data.json</result>
+            <result name="FAILURE">/error.json</result>
+        </action>
+    </package>
+
 </struts>
