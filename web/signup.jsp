@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="form-floating">
-                    <select name="countryCode" class="form-select rounded-0" id="countryCode" onchange="submitForm(event)">
+                    <select name="countryCode" class="form-select rounded-0" id="countryCode" onchange="fetchContent('countryCode', 'stateCode')">
                         <option value="0">--Select a Country--</option>
 
                         <c:forEach var="country" items="${countryList}">
@@ -101,14 +101,10 @@
                 </div>
 
                 <div class="form-floating">
-                    <select name="stateCode" class="form-select rounded-0" id="stateCode" onchange="submitForm(event)">
+                    <select name="stateCode" class="form-select rounded-0" id="stateCode" onchange="fetchContent('stateCode', 'districtCode')">
                         <option value="0">--Select a State--</option>
 
-                        <c:forEach var="state" items="${stateList}">
-                            <option value="${state.getStateCode()}" ${state.getStateCode() == user.getStateCode() ? "selected" : ""}>
-                                ${state.getStateName()}
-                            </option>
-                        </c:forEach>
+
                     </select>
                     <label for="stateCode">State</label>
                 </div>
@@ -117,11 +113,7 @@
                     <select name="districtCode" class="form-select rounded-top-0" id="districtCode">
                         <option value="0">--Select a District--</option>
 
-                        <c:forEach var="district" items="${districtList}">
-                            <option value="${district.getDistrictCode()}" ${district.getDistrictCode() == user.getDistrictCode() ? "selected" : ""}>
-                                ${district.getDistrictName()}
-                            </option>
-                        </c:forEach>
+
                     </select>
                     <label for="districtCode">District</label>
                 </div>
@@ -134,22 +126,18 @@
 
         </main>
     </body>
-
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script>
-        function submitForm(event) {
-            const countryCode = document.getElementById("countryCode");
-            const stateCode = document.getElementById("stateCode");
-            const districtCode = document.getElementById("districtCode");
-            if (event.target.id === "countryCode") {
-                stateCode.value = 0;
-            }
-
-//            console.log(countryCode.value === null);
-//            console.log(stateCode.value === null);
-//            console.log(districtCode.value === null);
-            signupForm.setAttribute("action", "PreSignUp");
-            signupForm.submit();
-        }
-
+                        function fetchContent(selectedId, targetId) {
+                            $.ajax({
+                                url: 'PreSignUp',
+                                data: {
+                                    [selectedId]: $("#" + selectedId).val()
+                                },
+                                success: function (responseText) {
+                                    $("#" + targetId).html(responseText);
+                                }
+                            });
+                        }
     </script>
 </html>

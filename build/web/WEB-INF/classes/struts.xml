@@ -22,6 +22,8 @@
         </action>
         <action name="PreSignUp" class="com.exavalu.models.User" method="doPreSignUp">
             <result name="SUCCESS">signup.jsp</result>
+            <result name="STATE">state.jsp</result>
+            <result name="DISTRICT">district.jsp</result>
         </action>
         <action name="CreateEmployee" class="com.exavalu.models.Employee" method="createEmployee">
             <result name="SUCCESS">employeeDetails.jsp</result>
