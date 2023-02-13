@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/employeeDetails.jsp</file>
             <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/src/java/struts.xml</file>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/menu.jsp</file>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/src/java/com/exavalu/models/JSONData.java</file>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/data.json</file>
+            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/src/java/com/exavalu/services/GeoMapService.java</file>
+            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/district.jsp</file>
             <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/src/java/com/exavalu/models/User.java</file>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/error.json</file>
-            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/src/java/com/exavalu/services/JSONService.java</file>
+            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/signup.jsp</file>
+            <file>file:/D:/Exavalu_training/NetBeansProjects/StrutsEmpMgmt/web/state.jsp</file>
         </group>
     </open-files>
 </project-private>

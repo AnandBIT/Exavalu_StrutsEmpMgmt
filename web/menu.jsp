@@ -66,25 +66,27 @@
         }
 
         async function sendDataToDB() {
-            var jsonData;
+            var jsonData = [];
             loader.classList.remove('d-none');
             await fetch("https://jsonplaceholder.typicode.com/posts").then(res => res.json()).then(data => {
                 jsonData = data;
+            }).catch((err) => {
+                console.error(err);
             });
+
             jsonData.splice(10, 90);
             console.log(jsonData);
-            fetch('SendDataToDB', {
+
+            await fetch('SendDataToDB', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({jsonData})
-            })
-                    .then((response) => {
-                        loader.classList.add('d-none');
-                        return response.json();
-                    }).then(data => {
-                console.log(data);
+            }).then((response) => {
+                return response.json();
+            }).then(data => {
+//                console.log(data);
                 if (data.done) {
                     successAlert.classList.remove("d-none");
                     successAlert.firstElementChild.innerText = "Yayy! Data Successfully inserted into DB";
@@ -92,9 +94,10 @@
                     errorAlert.classList.remove("d-none");
                     errorAlert.firstElementChild.innerText = "Oops! Something went wrong. Please try again";
                 }
-            })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+            }).catch((err) => {
+                console.error(err);
+            }).finally(() => {
+                loader.classList.add('d-none');
+            });
         }
     </script>
