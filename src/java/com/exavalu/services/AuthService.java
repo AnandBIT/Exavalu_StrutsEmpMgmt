@@ -10,14 +10,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.log4j.Logger;
 
 /**
  *
- * @author Avijit Chattopadhyay
+ * @author kumar
  */
 public class AuthService {
 
     public static AuthService authService = null;
+    private static final Logger logger = Logger.getLogger(AuthService.class);
 
     private AuthService() {
     }
@@ -50,7 +52,7 @@ public class AuthService {
             // NOTE - Getting error here (java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.)
 //            con.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         return success;
@@ -85,7 +87,7 @@ public class AuthService {
 //                con.close(); // NOTE - Getting error here (java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.)
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         return result;

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class GeoMapService {
 
     public static GeoMapService geomapService = null;
+    private static final Logger logger = Logger.getLogger(GeoMapService.class);
 
     public static GeoMapService getInstance() {
         if (geomapService == null) {
@@ -46,7 +48,7 @@ public class GeoMapService {
                 countryList.add(country);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         System.out.println("Number of countries -> " + countryList.size());
@@ -72,7 +74,7 @@ public class GeoMapService {
                 stateList.add(state);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         System.out.println("Number of states -> " + stateList.size());
@@ -98,7 +100,7 @@ public class GeoMapService {
                 districtList.add(district);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         System.out.println("Number of districts -> " + districtList.size());

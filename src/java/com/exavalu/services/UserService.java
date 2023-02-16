@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 public class UserService {
 
     public static UserService userService = null;
+    private static final Logger logger = Logger.getLogger(UserService.class);
 
     public static UserService getInstance() {
         if (userService == null) {
@@ -45,7 +47,7 @@ public class UserService {
             }
 
         } catch (SQLException ex) {
-
+            logger.error(ex.getMessage());
         }
 
         return user;

@@ -108,7 +108,6 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
 
             ArrayList empList = EmployeeService.getAllEmployees();
             sessionMap.put("empList", empList);
-
             result = "SUCCESS";
 
         } else {

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class EmployeeService {
 
     public static EmployeeService employeeService = null;
+    private static final Logger logger = Logger.getLogger(EmployeeService.class);
 
     public static EmployeeService getInstance() {
         if (employeeService == null) {
@@ -52,7 +54,7 @@ public class EmployeeService {
                 emp.setCarAllowance(rs.getDouble("carAllowance"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
         return emp;
     }
@@ -69,7 +71,7 @@ public class EmployeeService {
                 result = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
         return result;
     }
@@ -104,7 +106,7 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
         System.out.println("Number of employees = " + empList.size());
         return empList;
@@ -136,7 +138,7 @@ public class EmployeeService {
                 result = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
         return result;
     }
@@ -168,7 +170,7 @@ public class EmployeeService {
                 result = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
         return result;
     }
@@ -211,7 +213,7 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 //        System.out.println("Number of employees = " + empList.size());
         return empList;
@@ -249,7 +251,7 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-
+            logger.error(ex.getMessage());
         }
         return empList;
     }

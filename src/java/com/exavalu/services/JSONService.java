@@ -10,12 +10,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author kumar
  */
 public class JSONService {
+
+    private static final Logger logger = Logger.getLogger(JSONService.class);
 
     public static boolean sendDataToDB(List<JSONData> jsonData) {
         boolean result = false;
@@ -41,7 +44,7 @@ public class JSONService {
                 result = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
         return result;
     }

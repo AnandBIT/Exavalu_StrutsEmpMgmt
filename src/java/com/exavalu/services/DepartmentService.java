@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class DepartmentService {
 
     public static DepartmentService departmentService = null;
+    private static final Logger logger = Logger.getLogger(DepartmentService.class);
 
     public static DepartmentService getInstance() {
         if (departmentService == null) {
@@ -52,7 +54,7 @@ public class DepartmentService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         return deptLIst;
